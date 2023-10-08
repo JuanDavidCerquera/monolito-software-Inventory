@@ -1,0 +1,1 @@
+# monolito-software-Inventory
