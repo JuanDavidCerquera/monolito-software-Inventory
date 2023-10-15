@@ -6,7 +6,11 @@ package Model.entity;
 import  conexion.conexion;
 import java.util.Date;
 import Model.Interface.Accion;
+import com.sun.jdi.connect.spi.Connection;
 import java.util.Objects;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -82,10 +86,46 @@ public class Producto implements Accion{
         this.vencimiento = vencimiento;
     }
 
-    @Override
-    public void agregar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+
+
+@Override
+public void agregar() {
+    try {
+        // Establecer la conexión a la base de datos
+        java.sql.Connection connection = conn.getConnection();
+
+        // Crear la sentencia SQL parametrizada
+        String sentenciaSql = "INSERT INTO producto(" +
+            "codigo, " +
+            "nombre, " +
+            "precio, " +
+            "cantidad, " +
+            "created_at" +
+            ") VALUES (?, ?, ?, ?, ?)";
+
+        // Crear un PreparedStatement con la sentencia SQL
+        PreparedStatement preparedStatement = connection.prepareStatement(sentenciaSql);
+        preparedStatement.setString(1, this.getCodigo());
+        preparedStatement.setString(2, this.getNombre());
+        preparedStatement.setDouble(3, this.getPrecio());
+        preparedStatement.setInt(4, this.getCantidad());
+        preparedStatement.setDate(5, new java.sql.Date(new Date().getTime()));  // Usamos una fecha actual
+
+        // Ejecutar la sentencia para agregar el registro
+        preparedStatement.executeUpdate();
+
+        // Cerrar la conexión
+        connection.close();
+    } catch (SQLException e) {
+        e.printStackTrace(); // Maneja el error adecuadamente, podrías lanzar una excepción personalizada si lo deseas.
     }
+
+}
+
+    
+               
+    
 
     @Override
     public void modificar() {

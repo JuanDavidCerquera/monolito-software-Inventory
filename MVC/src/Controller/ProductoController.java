@@ -5,28 +5,34 @@
 package Controller;
 
 import Model.entity.Producto;
+import java.util.Date;
 
 /**
  *
  * @author ariel
  */
-public class Producto {
-    public void GuardarRegistro(String codigo, String nombre, Double precio, Long cantidad){
+public class ProductoController {
+    public void GuardarRegistro(String codigo, String nombre, Double precio, int cantidad,String categoria, Date vencimiento){
         Producto producto = new Producto();
         producto.setCodigo(codigo);
         producto.setNombre(nombre);
         producto.setPrecio(precio);
         producto.setCantidad(cantidad);
-        producto.Agregar();
+        producto.setCategoria(categoria);
+        producto.setVencimiento(vencimiento);
+
+        producto.agregar();
     }
     
-    public void ModificarRegistro(Long  id, String codigo, String nombre, Double precio, Long cantidad){
+    public void ModificarRegistro(Long  id, String codigo, String nombre, Double precio, int cantidad,String categoria, Date vencimiento){
         Producto producto = new Producto();
         producto.setId(id);
         producto.setCodigo(codigo);
         producto.setNombre(nombre);
         producto.setPrecio(precio);
         producto.setCantidad(cantidad);
-        producto.Modificar();
+        producto.setCategoria(categoria);
+        producto.setVencimiento(vencimiento);
+        producto.modificar();
     }
 }

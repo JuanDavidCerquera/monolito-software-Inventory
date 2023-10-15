@@ -8,15 +8,13 @@ package vista;
  *
  * @author bonil
  */
-import Modelo.ProveedorDAO;
-import controlador.Controlador;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import Modelo.ProveedorDAO;
 import javax.swing.DefaultListModel;
 import java.util.List;
 public class NewJFrame extends javax.swing.JFrame {
@@ -28,21 +26,9 @@ public class NewJFrame extends javax.swing.JFrame {
     
       public NewJFrame() {
         initComponents();
-        cargarNombresProveedores(); // Llama al método para cargar los nombres de los proveedores al inicio.
     }
       
-    private void cargarNombresProveedores() {
-        ProveedorDAO proveedorDAO = new ProveedorDAO();
-        List<String> proveedores = proveedorDAO.obtenerProveedores();
-    
-        DefaultListModel<String> model = new DefaultListModel<>();
-    
-        for (String proveedor : proveedores) {
-            model.addElement(proveedor);
-        }
-    
-        jList1.setModel(model);
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,7 +94,6 @@ public class NewJFrame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 0));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(60, 63, 65));
@@ -305,7 +290,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -318,7 +303,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel7))
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(valorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -431,35 +416,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_CodigoActionPerformed
 
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
-      
-                                                  
-    // Obtén los valores ingresados por el usuario desde las cajas de texto
-    String codigo = Codigo.getText();  // Cambiar 'codigo' a 'Codigo'
-    String nombre = nombreProducto.getText();
-    double valor = Double.parseDouble(valorUnitario.getText());
-    String categoria = (String) Categoria.getSelectedItem();
-    String cantidad = Cantidad.getText();
-    var provedor = Double.parseDouble(Provedor.getText());
-    String fechaTexto = vencimiento.getText();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-        Date fecha = null;
-      
 
-    // Llama al método del controlador para agregar el producto
-    boolean exito = Controlador.agregarProducto(provedor, codigo, nombre, valor, categoria, cantidad, fechaTexto);
-
-    if (exito) {
-        // Producto agregado con éxito, puedes mostrar un mensaje o limpiar los campos
-        Codigo.setText("");
-        nombreProducto.setText("");
-        valorUnitario.setText("");
-        // Y así sucesivamente para limpiar otros campos
-    } else {
-        // Muestra un mensaje de error si la inserción falla
-        JOptionPane.showMessageDialog(this, "Error al agregar el producto", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-  
     }//GEN-LAST:event_agregarProductoActionPerformed
 
     private void actualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarProductoActionPerformed
