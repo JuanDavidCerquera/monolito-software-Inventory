@@ -6,6 +6,7 @@ package Model.entity;
 import  conexion.conexion;
 import java.util.Date;
 import Model.Interface.Accion;
+import java.util.Objects;
 
 /**
  *
@@ -15,17 +16,23 @@ public class Producto implements Accion{
     public long id;
     public String codigo;
     public String nombre;
-    public Double valorUnitario;
-    public String categoria;
+    public Double precio;
     public int cantidad;
+    public String categoria;
     public Date vencimiento;
     public conexion conn;
 
     public Producto() {
         this.conn = conn;
     }   
-    
-   
+
+        public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }    
     
     public Long getId() {
         return id;
@@ -49,14 +56,6 @@ public class Producto implements Accion{
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Double getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(Double valorUnitario) {
-        this.valorUnitario = valorUnitario;
     }
 
     public String getCategoria() {

@@ -10,23 +10,23 @@ import Model.entity.Producto;
  *
  * @author ariel
  */
-public class Producto {
-    public void GuardarRegistro(String codigo, String nombre, Double precio, Long cantidad){
+public class ProductoController {
+    public void GuardarRegistro(String codigo, String nombre, Double precio, int cantidad){
         Producto producto = new Producto();
         producto.setCodigo(codigo);
         producto.setNombre(nombre);
         producto.setPrecio(precio);
         producto.setCantidad(cantidad);
-        producto.Agregar();
+        producto.agregar();
     }
     
-    public void ModificarRegistro(Long  id, String codigo, String nombre, Double precio, Long cantidad){
+    public void ModificarRegistro(Long  id, String codigo, String nombre, Double precio, int cantidad){
         Producto producto = new Producto();
         producto.setId(id);
         producto.setCodigo(codigo);
         producto.setNombre(nombre);
         producto.setPrecio(precio);
         producto.setCantidad(cantidad);
-        producto.Modificar();
+        producto.modificar();
     }
 }
