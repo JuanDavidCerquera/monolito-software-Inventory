@@ -9,7 +9,10 @@ import Model.Interface.Accion;
 import com.sun.jdi.connect.spi.Connection;
 import java.util.Objects;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -129,18 +132,86 @@ public void agregar() {
 
     @Override
     public void modificar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            java.sql.Connection connection = conn.getConnection();
+            
+            String sentenciaSql = "UPDATE Producto"+
+                    " WHERE ID = ? "+
+                    "SET codigo, " +
+                    "nombre, " +
+                    "precio, " +
+                    "cantidad, ";
+            
+            
+            
+        PreparedStatement preparedStatement = connection.prepareStatement(sentenciaSql);
+        preparedStatement.setString(1, this.getCodigo());
+        preparedStatement.setString(2, this.getNombre());
+        preparedStatement.setDouble(3, this.getPrecio());
+        preparedStatement.setInt(4, this.getCantidad());
+        preparedStatement.setDate(5, new java.sql.Date(new Date().getTime()));  // Usamos una fecha actual
+
+        // Ejecutar la sentencia para agregar el registro
+        preparedStatement.executeUpdate();
+
+        // Cerrar la conexión
+        connection.close();
+        } catch (SQLException e) {
+        e.printStackTrace(); // Maneja el error adecuadamente, podrías lanzar una excepción personalizada si lo deseas.
+    }
+    
     }
 
     @Override
     public void eliminar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+              try {
+            java.sql.Connection connection = conn.getConnection();
+            
+            String sentenciaSql = "DELETE FROM Producto WHERE ID = ?";
+            
+            
+            
+        PreparedStatement preparedStatement = connection.prepareStatement(sentenciaSql);
+        preparedStatement.setLong(1, this.getId());
+
+
+        // Ejecutar la sentencia para agregar el registro
+        preparedStatement.executeUpdate();
+
+        // Cerrar la conexión
+        connection.close();
+        } catch (SQLException e) {
+        e.printStackTrace(); // Maneja el error adecuadamente, podrías lanzar una excepción personalizada si lo deseas.
+    }
     }
 
     @Override
     public Object consultar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+               List<Producto> productos = new ArrayList<>();
+        java.sql.Connection connection = conn.getConnection();
+        String sentenciaSql = "SELECT * FROM Producto";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sentenciaSql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Producto productoEntrante = new Producto();
+                productoEntrante.setCodigo(resultSet.getString("Codigo"));
+                productoEntrante.setNombre(resultSet.getString("Nombre"));
+                productoEntrante.setPrecio(resultSet.getDouble("Precio"));
+                productoEntrante.setCantidad(resultSet.getInt("Cantidad"));
+                productoEntrante.setVencimiento(resultSet.getDate("Vencimiento"));
+                productos.add(productoEntrante);
+                System.out.println("  codigo: "+productoEntrante.getCodigo()+"  nombre: "+productoEntrante.getNombre()+"  precio: "+productoEntrante.getPrecio()+"  cantidad: "+productoEntrante.getCantidad()+"  vencimiento: "+productoEntrante.getVencimiento());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return productos;
     }
-    
-    
 }
+    
+    
+

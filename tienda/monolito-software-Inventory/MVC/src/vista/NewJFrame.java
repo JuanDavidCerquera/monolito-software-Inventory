@@ -4,25 +4,24 @@
  */
 package vista;
 
-<<<<<<< Updated upstream
 /**
  *
  * @author bonil
  */
 
-=======
+
 import Controller.ProductoC;
 import java.text.ParseException;
->>>>>>> Stashed changes
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import Controller.ProductoC;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-<<<<<<< Updated upstream
+
 import javax.swing.DefaultListModel;
 import java.util.List;
-=======
+
 
 import conexion.conexion;
 import java.sql.Connection;
@@ -33,7 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import javax.swing.JTextField;
->>>>>>> Stashed changes
+
 public class NewJFrame extends javax.swing.JFrame {
 
     conexion cn = new conexion();
@@ -48,17 +47,16 @@ public class NewJFrame extends javax.swing.JFrame {
     
        public NewJFrame() {
         initComponents();
-<<<<<<< Updated upstream
-    }
+
+    
       
 
-=======
+
          listar();
         agProductoC = new ProductoC();
     }
       
     
->>>>>>> Stashed changes
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -446,9 +444,7 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_CodigoActionPerformed
 
     private void agregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoActionPerformed
-<<<<<<< Updated upstream
 
-=======
       String codigo1 = Codigo.getText();
         String nombre = nombreProducto.getText();
         String categoriaSeleccionada = Categoria.getSelectedItem().toString();
@@ -482,7 +478,7 @@ public class NewJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al agregar el producto", "Error", JOptionPane.ERROR_MESSAGE);
         }*/
     
->>>>>>> Stashed changes
+
     }//GEN-LAST:event_agregarProductoActionPerformed
 
     private void actualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarProductoActionPerformed
