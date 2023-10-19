@@ -10,19 +10,10 @@ package vista;
  */
 
 
-import Controller.ProductoC;
+
 import java.text.ParseException;
-
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import Controller.ProductoC;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-
-import javax.swing.DefaultListModel;
-import java.util.List;
-
-
 import conexion.conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -31,7 +22,6 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import javax.swing.JTextField;
 
 public class NewJFrame extends javax.swing.JFrame {
 
@@ -165,7 +155,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel8.setText("Vencimiento");
 
-        vencimiento.setText("DD/MM/AA");
+        vencimiento.setText("AA-MM-DD");
         vencimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vencimientoActionPerformed(evt);
@@ -451,15 +441,10 @@ public class NewJFrame extends javax.swing.JFrame {
         Double precio = Double.parseDouble(valorUnitario.getText());
         int cantidad = Integer.parseInt(Cantidad.getText());
 
-      SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+     // SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
     String fechaTexto = vencimiento.getText();
-    Date fvencimiento = null;
+    Date fvencimiento = java.sql.Date.valueOf(fechaTexto);
 
-    try {
-        fvencimiento = dateFormat.parse(fechaTexto);
-    } catch (ParseException e) {
-        e.printStackTrace();
-    }
 
     if (fvencimiento != null) {  // Verificar que fvencimiento no sea nulo
         agProductoC.GuardarRegistro(codigo1, nombre, categoriaSeleccionada, fvencimiento, precio, cantidad);
@@ -478,6 +463,37 @@ public class NewJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al agregar el producto", "Error", JOptionPane.ERROR_MESSAGE);
         }*/
     
+
+    String sql = "select * from Producto";
+    try {
+        con = cn.getConnection();
+        st = con.createStatement();
+        rs = st.executeQuery(sql);
+        Object[] persona = new Object[11];
+
+        model = (DefaultTableModel) resultadoBusqueda.getModel();
+
+        while (rs.next()) {
+            persona[0] = rs.getInt("id");
+            persona[1] = rs.getString("codigo");
+            persona[2] = rs.getString("nombre");
+            persona[3] = rs.getString("precio");
+            persona[4] = rs.getString("cantidad");
+            persona[5] = rs.getString("state");
+            persona[6] = rs.getString("categoria"); 
+            persona[7] = rs.getString("deleted_at");
+            persona[8] = rs.getString("updated_at");
+            persona[9] = rs.getString("created_at");
+            persona[10] = rs.getString("categoria"); 
+
+            model.addRow(persona);
+        }
+        resultadoBusqueda.setModel(model);
+
+    } catch (Exception e) {
+       
+        e.printStackTrace();
+    }
 
     }//GEN-LAST:event_agregarProductoActionPerformed
 
@@ -612,7 +628,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField vencimiento;
     // End of variables declaration//GEN-END:variables
 void listar() {
-    String sql = "select * from producto";
+    String sql = "select * from Producto";
     try {
         con = cn.getConnection();
         st = con.createStatement();

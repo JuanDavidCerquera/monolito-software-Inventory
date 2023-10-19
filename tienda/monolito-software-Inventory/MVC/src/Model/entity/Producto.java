@@ -99,21 +99,25 @@ public void agregar() {
         java.sql.Connection connection = conn.getConnection();
 
         // Crear la sentencia SQL parametrizada
-        String sentenciaSql = "INSERT INTO producto(" +
+        String sentenciaSql = "INSERT INTO Producto(" +
             "codigo, " +
             "nombre, " +
             "precio, " +
+            "categoria,"+
             "cantidad, " +
+            "vencimiento, " +
             "created_at" +
-            ") VALUES (?, ?, ?, ?, ?)";
+            ") VALUES (?, ?, ?, ?, ?, ?,?)";
 
         // Crear un PreparedStatement con la sentencia SQL
         PreparedStatement preparedStatement = connection.prepareStatement(sentenciaSql);
         preparedStatement.setString(1, this.getCodigo());
         preparedStatement.setString(2, this.getNombre());
         preparedStatement.setDouble(3, this.getPrecio());
-        preparedStatement.setInt(4, this.getCantidad());
-        preparedStatement.setDate(5, new java.sql.Date(new Date().getTime()));  // Usamos una fecha actual
+        preparedStatement.setString(4, this.getCategoria());
+        preparedStatement.setInt(5, this.getCantidad());
+        preparedStatement.setDate(6, java.sql.Date.valueOf("2023-12-12"));//año-mes-dia
+        preparedStatement.setDate(7, new java.sql.Date(new Date().getTime()));  // Usamos una fecha actual
 
         // Ejecutar la sentencia para agregar el registro
         preparedStatement.executeUpdate();
