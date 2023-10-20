@@ -3,11 +3,12 @@ package conexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class conexion {
-    private static final String URL = "jdbc:mysql://localhost:3306/tienda_79";
+    private static final String URL = "jdbc:mysql://localhost:3306/tienda";
     private static final String USUARIO = "root";
-    private static final String CONTRASENA = "juda";
+    private static final String CONTRASENA = "";
 
     public static Connection getConnection() {
         try {
@@ -21,5 +22,9 @@ public class conexion {
             e.printStackTrace(); // Manejar errores apropiadamente
             return null; // O podrías lanzar una excepción personalizada
         }
+    }
+
+    public Statement createStatement() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -13,23 +13,16 @@ import java.util.Date;
  * @author ariel
  */
 public class ProductoC {
-    public void GuardarRegistro(String codigo, String nombre, String Categoria, Date fvencimiento, Double valorUnitario, int cantidad){
-        Producto producto = new Producto();
-        producto.setCodigo(codigo);
-        producto.setNombre(nombre);
-        producto.setCategoria(Categoria);
-        producto.setVencimiento(fvencimiento);
-        producto.setPrecio(valorUnitario);
-        producto.setCantidad(cantidad);
-        producto.agregar();
-    }
+    public void ModificarRegistro(String codigo, String nombre, String categoriaSeleccionada, Double precio, int cantidad, int idProveedorSeleccionado, Date fvencimiento) {
+
     
-    public void ModificarRegistro(Long  id, String codigo, String nombre, Double precio, int cantidad){
-        Producto producto = new Producto();
-        producto.setId(id);
+          Producto producto = new Producto();
+        producto.setId_provedor(idProveedorSeleccionado);
         producto.setCodigo(codigo);
         producto.setNombre(nombre);
-        producto.setPrecio(precio);
+        producto.setCategoria(categoriaSeleccionada);
+        producto.setVencimiento(fvencimiento);
+        producto.setValorUnitario(precio);
         producto.setCantidad(cantidad);
         producto.modificar();
     }
@@ -40,7 +33,7 @@ public class ProductoC {
         producto.setId(id);
         producto.setCodigo(codigo);
         producto.setNombre(nombre);
-        producto.setPrecio(precio);
+        producto.setValorUnitario(precio);
         producto.setCantidad(cantidad);
         producto.eliminar();
     }
@@ -49,8 +42,20 @@ public class ProductoC {
         producto.setId(id);
         producto.setCodigo(codigo);
         producto.setNombre(nombre);
-        producto.setPrecio(precio);
+        producto.setValorUnitario(precio);
         producto.setCantidad(cantidad);
         producto.consultar();
+    }
+
+    public void GuardarRegistro(String codigo, String nombre, String categoriaSeleccionada, Double precio, int cantidad, int idProveedorSeleccionado, Date fvencimiento) {
+             Producto producto = new Producto();
+        producto.setId_provedor(idProveedorSeleccionado);
+        producto.setCodigo(codigo);
+        producto.setNombre(nombre);
+        producto.setCategoria(categoriaSeleccionada);
+        producto.setVencimiento(fvencimiento);
+        producto.setValorUnitario(precio);
+        producto.setCantidad(cantidad);
+        producto.agregar();
     }
 }
