@@ -177,7 +177,6 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel5.setText("Categoria");
 
-        Cantidad.setText("Lb, Kg, @, L");
         Cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CantidadActionPerformed(evt);
@@ -261,7 +260,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        provedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        provedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         provedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 provedorActionPerformed(evt);
@@ -319,22 +318,24 @@ public class NewJFrame extends javax.swing.JFrame {
                                         .addComponent(jLabel6))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(55, 55, 55)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(AutoCompletProvedor, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel8)
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(provedor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel9))
-                                                    .addGap(33, 33, 33)
-                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel7)
-                                                        .addComponent(Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(180, 180, 180)
-                                                .addComponent(vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(AutoCompletProvedor, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel8)
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addGap(180, 180, 180)
+                                                        .addComponent(vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(provedor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel9))
+                                                .addGap(33, 33, 33)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel7)
+                                                    .addComponent(Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                         .addGap(123, 123, 123))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -501,7 +502,42 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarProductoActionPerformed
 
     private void actualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarProductoActionPerformed
-        // TODO add your handling code here:
+                    String sql = "select * from productos";
+    try {
+        con = cn.getConnection();
+        st = con.createStatement();
+        rs = st.executeQuery(sql);
+        Object[] persona = new Object[11];
+
+        model = (DefaultTableModel) resultadoBusqueda.getModel();
+
+        int fila= resultadoBusqueda.getRowCount();
+        for(int i=fila-1; i>=0;i--){
+            model.removeRow(i);
+        }
+        
+        
+        while (rs.next()) {
+            persona[0] = rs.getString("codigo");
+            persona[1] = rs.getString("nombre");
+            persona[2] = rs.getString("categoria");
+            persona[3] = rs.getString("ValorUnitario");
+            persona[4] = rs.getString("cantidad");
+            persona[9] = rs.getString("state");
+            persona[6] = rs.getString("id_provedor");
+            persona[7] = rs.getString("updated_at");
+            persona[8] = rs.getString("created_at");
+            persona[10] = rs.getString("categoria"); 
+
+            model.addRow(persona);
+        }
+        resultadoBusqueda.setModel(model);
+       
+
+    } catch (Exception e) {
+       
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_actualizarProductoActionPerformed
 
     
@@ -698,11 +734,12 @@ void listar() {
             persona[2] = rs.getString("categoria");
             persona[3] = rs.getString("ValorUnitario");
             persona[4] = rs.getString("cantidad");
-            persona[9] = rs.getString("state");
-             
+            persona[5] = rs.getString("FechaVencimiento");
+            
             persona[6] = rs.getString("id_provedor");
             persona[7] = rs.getString("updated_at");
             persona[8] = rs.getString("created_at");
+            persona[9] = rs.getString("state");
             persona[10] = rs.getString("categoria"); 
 
             model.addRow(persona);
