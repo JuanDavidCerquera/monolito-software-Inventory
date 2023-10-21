@@ -498,11 +498,33 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_modificarProductoActionPerformed
 
     private void eliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarProductoActionPerformed
-        // TODO add your handling code here:
+    
+    int filaSeleccionada = resultadoBusqueda.getSelectedRow();
+if (filaSeleccionada >= 0) {
+    // Obtén los datos de la fila antes de eliminarla
+    Object[] datosFila = new Object[model.getColumnCount()];
+    for (int i = 0; i < model.getColumnCount(); i++) {
+        datosFila[i] = model.getValueAt(filaSeleccionada, i);
+    }
+
+    // Imprime o utiliza los datos como lo necesites
+    for (Object dato : datosFila) {
+        System.out.println(dato);
+        
+    }
+
+    // Elimina la fila seleccionada del modelo de la tabla
+    
+    model.removeRow(filaSeleccionada);
+}
+
+
+
+
     }//GEN-LAST:event_eliminarProductoActionPerformed
 
     private void actualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarProductoActionPerformed
-                    String sql = "select * from productos";
+    String sql = "select * from productos";
     try {
         con = cn.getConnection();
         st = con.createStatement();
@@ -523,11 +545,13 @@ public class NewJFrame extends javax.swing.JFrame {
             persona[2] = rs.getString("categoria");
             persona[3] = rs.getString("ValorUnitario");
             persona[4] = rs.getString("cantidad");
+             persona[5] = rs.getString("FechaVencimiento");
             persona[9] = rs.getString("state");
+             
             persona[6] = rs.getString("id_provedor");
             persona[7] = rs.getString("updated_at");
             persona[8] = rs.getString("created_at");
-            persona[10] = rs.getString("categoria"); 
+            persona[10] = rs.getString("categoria");  
 
             model.addRow(persona);
         }
@@ -752,7 +776,7 @@ void listar() {
     }
 }
 public void AutocompleteCategoria() {
-        // Add a document listener to the text field
+       	      // Add a document listener to the text field
     AutoComplet.getDocument().addDocumentListener(new DocumentListener() {
         @Override
         public void insertUpdate(DocumentEvent e) {
@@ -794,10 +818,10 @@ public void AutocompleteCategoria() {
             // Create a statement to query the database
             Statement stmt = conn.createStatement();
             // Execute the query and get the results
-            ResultSet rs = stmt.executeQuery("SELECT Categoria FROM productos WHERE categoria LIKE '%" + input + "%';");
+            ResultSet rs = stmt.executeQuery("SELECT nombre  FROM categoria WHERE nombre LIKE '%" + input + "%';");
             // Loop through the results and add them to the list of suggestions
             while (rs.next()) {
-                suggestions.add(rs.getString("Categoria"));
+                suggestions.add(rs.getString("nombre"));
             }
             // Close the connection and statement
             rs.close();
