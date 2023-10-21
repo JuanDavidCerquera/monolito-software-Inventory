@@ -59,6 +59,17 @@ CREATE TABLE `devoluciones` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `categoria`
+--
+create TABLE categoria (
+	id bigint PRIMARY key not null auto_increment,
+	nombre VARCHAR(40)not null,
+    state bit NOT NULL DEFAULT 1,
+	deleted_at DATETIME,	
+	updated_at DATETIME,
+	created_at DATETIME
+);
+--
 -- Estructura de tabla para la tabla `empleados`
 --
 
